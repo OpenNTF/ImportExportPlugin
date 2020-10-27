@@ -149,7 +149,7 @@
 			            <exclude>**/NOTICE</exclude>
 					</excludes>
 					<properties>
-						<owner>Yi BJ Guo, Stephan Wissel, and Jesse Gallagher</owner>
+						<owner>IBM Corp. and Jesse Gallagher</owner>
 						<copyrightYear>2020</copyrightYear>
 					</properties>
 				</configuration>
