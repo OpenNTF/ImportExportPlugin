@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ********************************************************************** -->
+<!-- © Copyright IBM Corp. 2012												-->
+<!-- 																		-->
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); 		-->
+<!-- you may not use this file except in compliance with the License. 		-->
+<!-- You may obtain a copy of the License at:								-->
+<!-- 																		-->
+<!-- http://www.apache.org/licenses/LICENSE-2.0								-->
+<!-- 																		-->
+<!-- Unless required by applicable law or agreed to in writing, software 	-->
+<!-- distributed under the License is distributed on an "AS IS" BASIS, 		-->
+<!-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 		-->
+<!-- implied. See the License for the specific language governing 			-->
+<!-- permissions and limitations under the License.							-->
+<!-- ********************************************************************** -->
+
+<?eclipse version="3.4"?>
+<plugin>
+	<!--- File System Import Wizard-->
+	<extension
+			point="org.eclipse.ui.importWizards">
+		<category
+			name="%domino.designer.name"
+			id="com.ibm.designer.extensibility.copyfile.sampleCategory">
+		</category>
+		<wizard
+			name="%file.system.name"
+            icon="icons/folder_page.png"
+            category="com.ibm.designer.extensibility.copyfile.sampleCategory"
+            class="com.ibm.designer.extensibility.copyfile.wizards.ImportWizard"
+            id="com.ibm.designer.extensibility.copyfile.wizards.ImportWizard">
+			<description>
+           		%import.file.system.description
+      		</description>
+		</wizard>
+	</extension>
+
+   <!--- File System Export Wizard-->
+	<extension
+			point="org.eclipse.ui.exportWizards">
+		<category
+            name="%domino.designer.name"
+            id="com.ibm.designer.extensibility.copyfile.sampleCategory">
+		</category>
+		<wizard
+            name="%file.system.name"
+            icon="icons/folder_page.png"
+            category="com.ibm.designer.extensibility.copyfile.sampleCategory"
+            class="com.ibm.designer.extensibility.copyfile.wizards.ExportWizard"
+            id="com.ibm.designer.extensibility.copyfile.wizards.ExportWizard">
+			<description>
+            	%export.file.system.description
+      		</description>
+		</wizard>
+	</extension>
+
+   <!--- OpenNTF Import Wizard-->
+	<extension
+			point="org.eclipse.ui.importWizards">
+		<category
+            name="%domino.designer.name"
+            id="com.ibm.designer.extensibility.copyfile.sampleCategory">
+		</category>
+		<wizard
+            name="%import.openntf.customcontrol"
+            icon="icons/folder_star.png"
+            category="com.ibm.designer.extensibility.copyfile.sampleCategory"
+            class="com.ibm.designer.extensibility.copyfile.openntf.wizards.OpenNTFImportWizard"
+            id="com.ibm.designer.extensibility.copyfile.openntf.ImportWizard">
+			<description>
+           		%import.openntf.customcontrol.description
+      		</description>
+		</wizard>
+	</extension>
+
+	<!--- OpenNTF Export Wizard-->
+   	<extension
+			point="org.eclipse.ui.exportWizards">
+		<category
+            name="%domino.designer.name"
+            id="com.ibm.designer.extensibility.copyfile.sampleCategory">
+		</category>
+		<wizard
+            name="%export.openntf.customcontrol"
+            icon="icons/folder_star.png"
+            category="com.ibm.designer.extensibility.copyfile.sampleCategory"
+            class="com.ibm.designer.extensibility.copyfile.openntf.wizards.OpenNTFExportWizard"
+            id="com.ibm.designer.extensibility.copyfile.openntf.ExportWizard">
+			<description>
+           		%export.openntf.customcontrol.description
+      		</description>
+		</wizard>
+	</extension>
+   
+	<!--- Show Import/Export icons only on Domino Designer toolbar -->
+	<extension point="com.ibm.rcp.personality.framework.personalityExtensions">
+		<personalityExtension targetID="com.ibm.designer.domino.personality">
+			<actionSet id="com.ibm.designer.extensibility.copyfile.openntf.actionSet"/>
+		</personalityExtension>
+	</extension>
+	
+	<extension
+			point="org.eclipse.ui.actionSets">
+		<actionSet
+	        visible="true"
+	        label="%toolbar.label"
+			id="com.ibm.designer.extensibility.copyfile.openntf.actionSet">
+			
+			<!-- Show just one icon, hide the other options by collapsing them -->
+			<action
+               label="%openntf.customcontrol.toolbar.label.import"
+               icon="icons/openntf_import.png"
+               class="com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFToolbarAction"
+               tooltip="%openntf.customcontrol.toolbar.label.import"
+               toolbarPath="openntfGroup"
+               retarget="false"
+               style="pulldown"
+               id="com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFToolbarAction">
+			</action>
+
+		</actionSet>
+	</extension>
+	
+	<!-- right click menu -->
+	<extension
+			point="org.eclipse.ui.popupMenus">
+		<objectContribution
+			adaptable="true"
+			id="com.ibm.designer.extensibility.copyfile.openntf.actions.PopupMenuAction"
+			nameFilter="*"
+			objectClass="org.eclipse.core.resources.IProject">
+
+			<menu
+				label="OpenNTF"
+				path="additions"
+				id="openntf.popupmenu">
+				<separator
+					name="openntf.popupmenu">
+				</separator>
+			</menu>
+			
+			<action
+				class="com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuOpenTempDirAction"
+				enablesFor="1"
+				id="3.com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuOpenTempDirAction"
+				icon="icons/folder_page.png"
+				label="%openntf.customcontrol.toolbar.label.open.temp.dir"
+				menubarPath="openntf.popupmenu/openntfGroup">
+			</action>
+
+			<action
+				class="com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuExportAction"
+				enablesFor="1"
+				id="2.com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuExportAction"
+				icon="icons/openntf_export.png"
+				label="%openntf.customcontrol.toolbar.label.export"
+				menubarPath="openntf.popupmenu/openntfGroup">
+			</action>
+			
+			<action
+				class="com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuImportAction"
+				enablesFor="1"
+				id="1.com.ibm.designer.extensibility.copyfile.openntf.actions.OpenNTFPopupMenuImportAction"
+				icon="icons/openntf_import.png"
+				label="%openntf.customcontrol.toolbar.label.import"
+				menubarPath="openntf.popupmenu/openntfGroup">
+			</action>
+			
+		</objectContribution>
+	</extension>
+     
+</plugin>
