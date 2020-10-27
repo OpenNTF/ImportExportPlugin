@@ -42,8 +42,9 @@
 
 	<modules>
 		<module>com.ibm.designer.extensibility.copyfile</module>
-
 		<module>com.ibm.designer.extensibility.copyfile.feature</module>
+		<module>org.openntf.designer.extensibility.copyfile.update</module>
+		<module>copyfile-dist</module>
 	</modules>
 
 	<properties>
