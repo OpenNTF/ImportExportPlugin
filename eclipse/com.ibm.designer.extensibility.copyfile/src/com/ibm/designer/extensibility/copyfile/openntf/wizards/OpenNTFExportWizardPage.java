@@ -69,7 +69,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.dialogs.WizardDataTransferPage;
-import org.eclipse.ui.internal.ide.dialogs.ResourceTreeAndListGroup;
+import org.eclipse.ui.ide.dialogs.ResourceTreeAndListGroup;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
@@ -86,7 +86,6 @@ import com.ibm.designer.extensibility.copyfile.resources.OpenNTFConstants;
 /**
  * @author Guo Yi(guoyibj@cn.ibm.com)
  */
-@SuppressWarnings("restriction")
 public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	private static final Logger logger = ImportExportPlugin.getLogger();
 	private String sourceClass = this.getClass().getName();
