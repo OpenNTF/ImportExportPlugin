@@ -19,7 +19,7 @@
 <feature
       id="com.ibm.designer.extensibility.copyfile.feature"
       label="Import/Export Feature"
-      version="2.1.3"
+      version="2.1.4.qualifier"
       provider-name="IBM">
 
    <description url="http://www.example.com/description">
@@ -271,10 +271,6 @@ and
 limitations under the License.
    </license>
 
-   <plugin
-         id="com.ibm.designer.extensibility.copyfile"
-         download-size="155"
-         install-size="305"
-         version="2.1.3"/>
+   <plugin id="com.ibm.designer.extensibility.copyfile" version="0.0.0"/>
 
 </feature>
