@@ -13,8 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  com.ibm.designer.domino.ide.resources,
  com.ibm.designer.domino.ui.commons,
- com.ibm.notes.java.api,
  com.ibm.json4j,
  org.apache.ant
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: lotus.domino
