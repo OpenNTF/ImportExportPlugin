@@ -39,7 +39,7 @@ public class XMLCreater {
 	public XMLCreater(File xmlFile, String[] folders, String[] files) {
 		this(xmlFile, folders, files, null, null);
 	}
-	
+
 	public XMLCreater(File xmlFile, String[] folders, String[] files, String[] testFolders, String[] testFiles) {
 		this.xmlFile = xmlFile;
 		this.folders = folders;
@@ -62,7 +62,7 @@ public class XMLCreater {
 		this.testFolders = getStringArrayFromList(testFolders);
 		this.testFiles = getStringArrayFromList(testFiles);
 	}
-	
+
 	private String[] getStringArrayFromList(ArrayList<String> list){
 		if (list != null && list.size() > 0) {
 			Object[] objArr = list.toArray();
@@ -102,7 +102,7 @@ public class XMLCreater {
 
 		if (folders != null && folders.length > 0) {
 			fileContents.append("\r\n\t<ImportFolders>"); //$NON-NLS-1$
-			for (int i = 0; i < folders.length; i++) {
+			for (String folder : folders) {
 				fileContents
 						.append("\r\n\t\t<") //$NON-NLS-1$
 						.append(
@@ -111,7 +111,7 @@ public class XMLCreater {
 						.append(
 								OpenNTFConstants.default_importlist_folder_AttributeName)
 						.append("=\"") //$NON-NLS-1$
-						.append(folders[i]).append("\"/>"); //$NON-NLS-1$
+						.append(folder).append("\"/>"); //$NON-NLS-1$
 			}
 			fileContents.append("\r\n\t</ImportFolders>"); //$NON-NLS-1$
 		} else {
@@ -127,7 +127,7 @@ public class XMLCreater {
 
 		if (files != null && files.length > 0) {
 			fileContents.append("\r\n\t<ImportFiles>"); //$NON-NLS-1$
-			for (int i = 0; i < files.length; i++) {
+			for (String file : files) {
 				fileContents
 						.append("\r\n\t\t<") //$NON-NLS-1$
 						.append(
@@ -136,7 +136,7 @@ public class XMLCreater {
 						.append(
 								OpenNTFConstants.default_importlist_file_AttributeName)
 						.append("=\"") //$NON-NLS-1$
-						.append(files[i]) //$NON-NLS-1$
+						.append(file) 
 						.append("\"/>"); //$NON-NLS-1$
 			}
 			fileContents.append("\r\n\t</ImportFiles>"); //$NON-NLS-1$
@@ -151,10 +151,10 @@ public class XMLCreater {
 							"\r\n\t\t<ImportFile file=\"CustomControls/ccXXX.xsp-config\" />") //$NON-NLS-1$
 					.append("\r\n\t</ImportFiles>").append("\r\n\t-->"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		
+
 		if (testFolders != null && testFolders.length > 0) {
 			fileContents.append("\r\n\t<TestFolders>"); //$NON-NLS-1$
-			for (int i = 0; i < testFolders.length; i++) {
+			for (String testFolder : testFolders) {
 				fileContents
 						.append("\r\n\t\t<") //$NON-NLS-1$
 						.append(
@@ -163,14 +163,14 @@ public class XMLCreater {
 						.append(
 								OpenNTFConstants.default_importlist_testFolder_AttributeName)
 						.append("=\"") //$NON-NLS-1$
-						.append(testFolders[i]).append("\"/>"); //$NON-NLS-1$
+						.append(testFolder).append("\"/>"); //$NON-NLS-1$
 			}
 			fileContents.append("\r\n\t</TestFolders>"); //$NON-NLS-1$
 		}
-		
+
 		if (testFiles != null && testFiles.length > 0) {
 			fileContents.append("\r\n\t<TestFiles>"); //$NON-NLS-1$
-			for (int i = 0; i < testFiles.length; i++) {
+			for (String testFile : testFiles) {
 				fileContents
 						.append("\r\n\t\t<") //$NON-NLS-1$
 						.append(
@@ -179,11 +179,11 @@ public class XMLCreater {
 						.append(
 								OpenNTFConstants.default_importlist_testFile_AttributeName)
 						.append("=\"") //$NON-NLS-1$
-						.append(testFiles[i]) //$NON-NLS-1$
+						.append(testFile) 
 						.append("\"/>"); //$NON-NLS-1$
 			}
 			fileContents.append("\r\n\t</TestFiles>"); //$NON-NLS-1$
-		} 
+		}
 
 		fileContents.append("\r\n</ImportList>"); //$NON-NLS-1$
 
@@ -219,11 +219,11 @@ public class XMLCreater {
 		String corefiles[] = new String[2];
 		corefiles[0] = "CustomControls/ccXXX.xsp"; //$NON-NLS-1$
 		corefiles[1] = "CustomControls/ccXXX.xsp-config"; //$NON-NLS-1$
-		
+
 		String testfolders[] = new String[2];
 		testfolders[0] = "XPages"; //$NON-NLS-1$
 		testfolders[1] = "Views"; //$NON-NLS-1$
-		
+
 		String testfiles[] = new String[2];
 		testfiles[0] = "CustomControls/testXXX.xsp"; //$NON-NLS-1$
 		testfiles[1] = "CustomControls/testXXX.xsp-config"; //$NON-NLS-1$

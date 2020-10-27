@@ -33,12 +33,13 @@ public class OverwriteQuery implements IOverwriteQuery {
 	 * The <code>OverwriteQuery</code> implementation of this
 	 * <code>IOverwriteQuery</code> method asks the user whether the existing
 	 * resource at the given path should be overwritten.
-	 * 
+	 *
 	 * @param pathString
 	 * @return the user's reply: one of <code>"YES"</code>, <code>"NO"</code>,
 	 *         <code>"ALL"</code>, or <code>"CANCEL"</code>
 	 * @see org.eclipse.ui.dialogs.WizardDataTransferPage.queryOverwrite()
 	 */
+	@Override
 	public String queryOverwrite(String pathString) {
 		Path path = new Path(pathString);
 		final String messageString;
@@ -57,6 +58,7 @@ public class OverwriteQuery implements IOverwriteQuery {
 		// run in syncExec because callback is from an operation,
 		// which is probably not running in the UI thread.
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				MessageDialog dialog = new MessageDialog(null,
 						IDEWorkbenchMessages.Question, null, messageString,

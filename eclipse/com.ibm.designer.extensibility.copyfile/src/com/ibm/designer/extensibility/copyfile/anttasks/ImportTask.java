@@ -17,7 +17,6 @@ package com.ibm.designer.extensibility.copyfile.anttasks;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 import java.util.Vector;
 
 import org.apache.tools.ant.BuildException;
@@ -52,11 +51,9 @@ public class ImportTask extends Task {
 	private Vector<Object> filesToImport = new Vector<Object>();
 
 	public ImportTask() {
-		super();
 	}
 
 	public ImportTask(Vector<Object> filesToImport, String fromdir) {
-		super();
 		this.filesToImport = filesToImport;
 		this.fromdir = fromdir;
 	}
@@ -86,6 +83,7 @@ public class ImportTask extends Task {
 	}
 
 	// The method executing the task
+	@Override
 	public void execute() throws BuildException {
 		validate();
 		executeFileSet();
@@ -95,20 +93,17 @@ public class ImportTask extends Task {
 
 	// The method adding files included in filelist to filesToImport
 	public void executeFileList() {
-		for (Iterator<FileList> itFLists = filelists.iterator(); itFLists
-				.hasNext();) {
-			FileList fl = (FileList) itFLists.next();
+		for (FileList filelist : filelists) {
+			FileList fl = filelist;
 			File fileDir = fl.getDir(getProject());
 			if (!fileDir.exists() || !fileDir.isDirectory()) {
 				return;
 			}
 			if (debug) {
-				System.out
-						.println("ImportTask.executeFileList: dir = " + fileDir); //$NON-NLS-1$
+				System.out.println("ImportTask.executeFileList: dir = " + fileDir); //$NON-NLS-1$
 			}
 			String[] includedFiles = fl.getFiles(getProject());
-			for (int i = 0; i < includedFiles.length; i++) {
-				String filename = includedFiles[i];
+			for (String filename : includedFiles) {
 				filesToImport.add(new File(fileDir, filename));
 				if (debug) {
 					System.out.println("ImportTask.executeFileList: add file " //$NON-NLS-1$
@@ -120,8 +115,8 @@ public class ImportTask extends Task {
 
 	// The method adding files included in fileset to filesToImport
 	public void executeFileSet() {
-		for (Iterator<FileSet> itFSets = filesets.iterator(); itFSets.hasNext();) {
-			FileSet fs = (FileSet) itFSets.next();
+		for (FileSet fileset : filesets) {
+			FileSet fs = fileset;
 			DirectoryScanner ds = fs.getDirectoryScanner(getProject());
 			File fileDir = ds.getBasedir();
 			if (!fileDir.exists() || !fileDir.isDirectory()) {
@@ -133,8 +128,7 @@ public class ImportTask extends Task {
 			}
 
 			String[] includedFiles = ds.getIncludedFiles();
-			for (int i = 0; i < includedFiles.length; i++) {
-				String filename = includedFiles[i];
+			for (String filename : includedFiles) {
 				filesToImport.add(new File(fileDir, filename));
 				if (debug) {
 					System.out.println("ImportTask.executeFileSet: add file " //$NON-NLS-1$
@@ -152,11 +146,12 @@ public class ImportTask extends Task {
 				FileSystemStructureProvider.INSTANCE, new IOverwriteQuery() {
 					/*
 					 * (non-Javadoc)
-					 * 
+					 *
 					 * @see
 					 * org.eclipse.ui.dialogs.IOverwriteQuery#queryOverwrite
 					 * (java.lang.String)
 					 */
+					@Override
 					public String queryOverwrite(String pathString) {
 						// Overwrite all files in the destination project
 						return IOverwriteQuery.ALL;

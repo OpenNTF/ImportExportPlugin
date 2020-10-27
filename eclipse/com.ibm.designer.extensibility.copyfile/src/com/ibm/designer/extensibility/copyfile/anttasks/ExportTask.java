@@ -15,7 +15,6 @@
  */
 package com.ibm.designer.extensibility.copyfile.anttasks;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -50,11 +49,9 @@ public class ExportTask extends Task {
 	private Vector<Object> filesToExport = new Vector<Object>();
 
 	public ExportTask() {
-		super();
 	}
 
 	public ExportTask(Vector<Object> filesToExport, String todir) {
-		super();
 		this.filesToExport = filesToExport;
 		this.todir = todir;
 	}
@@ -84,6 +81,7 @@ public class ExportTask extends Task {
 	}
 
 	// The method executing the task
+	@Override
 	public void execute() throws BuildException {
 		validate();
 		executeFileSet();
@@ -93,22 +91,21 @@ public class ExportTask extends Task {
 
 	// The method adding files included in filelist to filesToExport
 	public void executeFileList() {
-		for (Iterator<FileList> itFLists = filelists.iterator(); itFLists
-				.hasNext();) {
-			FileList filelist = (FileList) itFLists.next();
-			EclipseFileList fl = new EclipseFileList(filelist);
-			List<IResource> includedFiles = fl.getFileResources(getProject(),
-					eclipseProject, debug);
-			filesToExport.addAll(includedFiles);
-		}
+		for (FileList filelist2 : filelists) {
+FileList filelist = filelist2;
+EclipseFileList fl = new EclipseFileList(filelist);
+List<IResource> includedFiles = fl.getFileResources(getProject(),
+			eclipseProject, debug);
+filesToExport.addAll(includedFiles);
+}
 	}
 
 	// The method adding folder included in fileset to filesToExport
 	public void executeFileSet() {
-		for (Iterator<FileSet> itFSets = filesets.iterator(); itFSets.hasNext();) {
-			FileSet fileset = (FileSet) itFSets.next();
+		for (FileSet fileset2 : filesets) {
+			FileSet fileset = fileset2;
 			EclipseFileSet fs = new EclipseFileSet(fileset);
-			EclipseDirectoryScanner ds = (EclipseDirectoryScanner) fs
+			EclipseDirectoryScanner ds = fs
 					.getDirectoryScanner(getProject(), eclipseProject, debug);
 			IFolder folder = ds.getIncludedFolder();
 			if (debug) {
@@ -128,11 +125,12 @@ public class ExportTask extends Task {
 				filesToExport, todir, new IOverwriteQuery() {
 					/*
 					 * (non-Javadoc)
-					 * 
+					 *
 					 * @see
 					 * org.eclipse.ui.dialogs.IOverwriteQuery#queryOverwrite
 					 * (java.lang.String)
 					 */
+					@Override
 					public String queryOverwrite(String pathString) {
 						// Overwrite all files in the destination project
 						return IOverwriteQuery.ALL;

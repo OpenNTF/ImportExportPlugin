@@ -46,7 +46,7 @@ public class Constants {
 	public final static String FOLDER_DATA = "Data"; //$NON-NLS-1$
 	public final static String FOLDER_COMPAPPS = "CompositeApplications"; //$NON-NLS-1$
 	public final static String FOLDER_APPPROPS = "AppProperties"; //$NON-NLS-1$
-	
+
 	// Files
 	public final static String FILE_CLASSPATH = ".classpath"; //$NON-NLS-1$
 }

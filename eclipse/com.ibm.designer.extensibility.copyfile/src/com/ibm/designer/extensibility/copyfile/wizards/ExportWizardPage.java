@@ -60,9 +60,10 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 	 * The Finish button was pressed. Try to do the required work now and answer
 	 * a boolean indicating success. If false is returned then the wizard will
 	 * not close.
-	 * 
+	 *
 	 * @return boolean
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public boolean finish() {
 		List resourcesToExport = getWhiteCheckedResources();
@@ -81,7 +82,7 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 	/**
 	 * Set up and execute the passed Operation. Answer a boolean indicating
 	 * success.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	protected boolean executeExportOperation(EclipseExportOperation op) {
@@ -122,6 +123,7 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 	/**
 	 * Create the buttons in the options group.
 	 */
+	@Override
 	protected void createOptionsGroupButtons(Group optionsGroup) {
 
 		Font font = optionsGroup.getFont();
@@ -153,6 +155,7 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 	 * Hook method for saving widget values for restoration by the next instance
 	 * of this class.
 	 */
+	@Override
 	protected void internalSaveWidgetValues() {
 		// update directory names history
 		IDialogSettings settings = ImportExportPlugin.getDefault()
@@ -181,6 +184,7 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 	 * Hook method for restoring widget values to the values that they held last
 	 * time this wizard was used to completion.
 	 */
+	@Override
 	protected void restoreWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -193,8 +197,8 @@ public class ExportWizardPage extends WizardFileSystemResourceExportPage1 {
 
 			// destination
 			setDestinationValue(directoryNames[0]);
-			for (int i = 0; i < directoryNames.length; i++) {
-				addDestinationItem(directoryNames[i]);
+			for (String directoryName : directoryNames) {
+				addDestinationItem(directoryName);
 			}
 
 			// options

@@ -88,7 +88,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	private final static String STORE_OPENNTF_IMPORT_UNIT_TESTS_ID = "OpenNTF.ImportWizardPage.IMPORT_UNIT_TESTS_ID";//$NON-NLS-1$
 	private final static String STORE_OPENNTF_OVERWRITE_EXISTING_RESOURCES_ID = "OpenNTF.ImportWizardPage.STORE_OVERWRITE_EXISTING_RESOURCES_ID";//$NON-NLS-1$
 	private final static String STORE_OPENNTF_REMOVE_TEMP_FILES_ID = "OpenNTF.ImportWizardPage.REMOVE_TEMP_FILES_ID";//$NON-NLS-1$
-	private final static String STORE_OPENNTF_CREATE_LOGFILE_ID = "OpenNTF.ImportWizardPage.STORE_CREATE_LOGFILE_ID";//$NON-NLS-1$    
+	private final static String STORE_OPENNTF_CREATE_LOGFILE_ID = "OpenNTF.ImportWizardPage.STORE_CREATE_LOGFILE_ID";//$NON-NLS-1$
 
 	// Tree viewer size
 	private final static int TREE_HEIGHT = 300;
@@ -131,6 +131,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	/**
 	 * (non-Javadoc) Method declared on IDialogPage.
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		initializeDialogUnits(parent);
 
@@ -160,6 +161,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create the import options specification widgets.
 	 */
+	@Override
 	protected void createOptionsGroupButtons(Group optionsGroup) {
 		Font font = optionsGroup.getFont();
 		// import unit tests
@@ -228,6 +230,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 
 		controlTreeViewer
 				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
 					public void selectionChanged(SelectionChangedEvent e) {
 						handleSelectionChanged((IStructuredSelection) e
 								.getSelection());
@@ -235,6 +238,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 				});
 
 		controlTreeViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent e) {
 				setPageComplete(determinePageCompletion());
 			}
@@ -262,7 +266,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Creates the import destination specification controls.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 */
@@ -318,7 +322,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Sets the value of this page's container resource field, or stores it for
 	 * future use if this page's controls do not exist yet.
-	 * 
+	 *
 	 * @param value
 	 *            String
 	 */
@@ -334,7 +338,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * The Finish button was pressed. Try to do the required work now and answer
 	 * a boolean indicating success. If false is returned then the wizard will
 	 * not close.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean finish() {
@@ -391,6 +395,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * Since Finish was pressed, write widget values to the dialog store so that
 	 * they will persist into the next invocation of this wizard page
 	 */
+	@Override
 	protected void saveWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -411,6 +416,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * Use the dialog store to restore widget values to the values that they
 	 * held last time this wizard was used to completion
 	 */
+	@Override
 	protected void restoreWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -432,7 +438,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Return the path for the resource field.
-	 * 
+	 *
 	 * @return IPath
 	 */
 	protected IPath getResourcePath() {
@@ -443,7 +449,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * Returns the container resource specified in the container name entry
 	 * field, or <code>null</code> if such a container does not exist in the
 	 * workbench.
-	 * 
+	 *
 	 * @return the container resource specified in the container name entry
 	 *         field, or <code>null</code>
 	 */
@@ -467,7 +473,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * The container specified by the full path might not exist and would need
 	 * to be created.
 	 * </p>
-	 * 
+	 *
 	 * @return the full path of the container resource specified in the
 	 *         container name entry field, or <code>null</code>
 	 */
@@ -495,6 +501,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * <code>WizardDataTransferPage</code> method returns <code>true</code>.
 	 * Subclasses may override this method.
 	 */
+	@Override
 	protected boolean allowNewContainerName() {
 		return true;
 	}
@@ -503,10 +510,11 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	 * The <code>OpenNTFImportWizardPage</code> implementation of this
 	 * <code>Listener</code> method handles all events and enablements for
 	 * controls on this page.
-	 * 
+	 *
 	 * @param event
 	 *            Event
 	 */
+	@Override
 	public void handleEvent(Event event) {
 		Widget source = event.widget;
 
@@ -542,6 +550,7 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 	/*
 	 * @see WizardDataTransferPage.determinePageCompletion.
 	 */
+	@Override
 	protected boolean determinePageCompletion() {
 		if (controlTreeViewer.getCheckedElements().length == 0) {
 			setErrorMessage(Messages.OpenNTFImport_error_noSource);
@@ -576,14 +585,14 @@ public class OpenNTFImportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Returns whether or not the passed workspace has any open projects
-	 * 
+	 *
 	 * @return boolean
 	 */
 	private boolean noOpenProjects() {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot()
 				.getProjects();
-		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()) {
+		for (IProject project : projects) {
+			if (project.isOpen()) {
 				return false;
 			}
 		}

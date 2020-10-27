@@ -66,12 +66,14 @@ public class TestTreeViewer {
 		}
 
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent e) {
 				handleSelectionChanged((IStructuredSelection) e.getSelection());
 			}
 		});
 
 		treeViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent e) {
 				Object[] objs = treeViewer.getCheckedElements();
 				System.out.println(objs.length);
@@ -88,8 +90,9 @@ public class TestTreeViewer {
 		shell.setLayout(new FillLayout());
 		shell.layout();
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
 		}
 	}
 

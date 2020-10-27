@@ -58,6 +58,7 @@ public class UnZipJob extends WorkspaceJob {
 		this.destPath = destPath;
 	}
 
+	@Override
 	public IStatus runInWorkspace(IProgressMonitor monitor)
 			throws CoreException {
 		this.monitor = monitor;
@@ -111,12 +112,14 @@ public class UnZipJob extends WorkspaceJob {
 				if (zipEntry.isDirectory()) {
 					targetFile.mkdirs();
 				} else {
-					if (!targetFile.getParentFile().exists())
+					if (!targetFile.getParentFile().exists()) {
 						targetFile.getParentFile().mkdirs();
+					}
 					inputStream = zipFile.getInputStream(zipEntry);
 					outputStream = new FileOutputStream(targetFile);
-					while ((length = inputStream.read(b)) > 0)
+					while ((length = inputStream.read(b)) > 0) {
 						outputStream.write(b, 0, length);
+					}
 				}
 				monitor.worked(1);
 			}

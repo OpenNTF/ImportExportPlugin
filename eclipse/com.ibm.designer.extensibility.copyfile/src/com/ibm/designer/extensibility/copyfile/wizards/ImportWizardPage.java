@@ -49,7 +49,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	// dialog store id constants
 	private final static String STORE_SOURCE_NAMES_ID = "ImportWizardPage.STORE_SOURCE_NAMES_ID";//$NON-NLS-1$
 	private final static String STORE_OVERWRITE_ALL_EXISTING_RESOURCES_ID = "ImportWizardPage.STORE_OVERWRITE_ALL_EXISTING_RESOURCES_ID";//$NON-NLS-1$
-	private final static String STORE_CREATE_LOGFILE_ID = "ImportWizardPage.STORE_CREATE_LOGFILE_ID";//$NON-NLS-1$    
+	private final static String STORE_CREATE_LOGFILE_ID = "ImportWizardPage.STORE_CREATE_LOGFILE_ID";//$NON-NLS-1$
 
 	public ImportWizardPage(String name, IWorkbench aWorkbench,
 			IStructuredSelection selection) {
@@ -61,6 +61,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	/**
 	 * Import the resources with extensions as specified by the user
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	protected boolean importResources(List fileSystemObjects) {
 		EclipseImportOperation operation = new EclipseImportOperation(
@@ -113,6 +114,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	/**
 	 * Create the import options specification widgets.
 	 */
+	@Override
 	protected void createOptionsGroupButtons(Group optionsGroup) {
 		Font font = optionsGroup.getFont();
 
@@ -143,6 +145,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	 * Use the dialog store to restore widget values to the values that they
 	 * held last time this wizard was used to completion
 	 */
+	@Override
 	protected void restoreWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -153,8 +156,8 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 			}
 
 			// set filenames history
-			for (int i = 0; i < sourceNames.length; i++) {
-				sourceNameField.add(sourceNames[i]);
+			for (String sourceName : sourceNames) {
+				sourceNameField.add(sourceName);
 			}
 
 			// radio buttons and checkboxes
@@ -174,6 +177,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	 * Since Finish was pressed, write widget values to the dialog store so that
 	 * they will persist into the next invocation of this wizard page
 	 */
+	@Override
 	protected void saveWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -202,6 +206,7 @@ public class ImportWizardPage extends WizardFileSystemResourceImportPage1 {
 	 * Answer a boolean indicating whether self's source specification widgets
 	 * currently all contain valid values.
 	 */
+	@Override
 	protected boolean validateSourceGroup() {
 		if (!super.validateSourceGroup()) {
 			return false;

@@ -37,7 +37,6 @@ public class EclipseFileSet extends FileSet {
 	private boolean followSymlinks = true;
 
 	public EclipseFileSet() {
-		super();
 	}
 
 	public EclipseFileSet(FileSet fileset) {
@@ -46,7 +45,7 @@ public class EclipseFileSet extends FileSet {
 
 	/**
 	 * Returns the directory scanner needed to access the files to process.
-	 * 
+	 *
 	 * @param p
 	 *            the Project against which the DirectoryScanner should be
 	 *            configured.

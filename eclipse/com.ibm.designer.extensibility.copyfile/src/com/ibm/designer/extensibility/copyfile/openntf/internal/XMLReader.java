@@ -142,17 +142,17 @@ public class XMLReader {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public void getDefaultExportList() {
 		String[] folders = OpenNTFConstants.DEFAULT_IMPORT_FOLDERS;
 		String[] files = OpenNTFConstants.DEFAULT_IMPORT_FILES;
-		for (int i = 0; i < folders.length; i++) {
-			folder_list.add(folders[i]);
+		for (String folder : folders) {
+			folder_list.add(folder);
 		}
-		for (int i = 0; i < files.length; i++) {
-			file_list.add(files[i]);
+		for (String file : files) {
+			file_list.add(file);
 		}
 	}
 
@@ -165,8 +165,8 @@ public class XMLReader {
 			getDefaultExportList();
 		}
 
-		for (int i = 0; i < folder_list.size(); i++) {
-			IPath path = new Path((String) folder_list.get(i));
+		for (String element : folder_list) {
+			IPath path = new Path(element);
 			IFolder folder = eclipseProject.getFolder(path);
 			if (folder.exists()) {
 				filesToExport.add(folder);
@@ -176,8 +176,8 @@ public class XMLReader {
 			}
 		}
 
-		for (int i = 0; i < file_list.size(); i++) {
-			IPath path = new Path((String) file_list.get(i));
+		for (String element : file_list) {
+			IPath path = new Path(element);
 			IResource file = eclipseProject.getFile(path);
 			if (file.exists() && file instanceof IFile) {
 				filesToExport.add(file);

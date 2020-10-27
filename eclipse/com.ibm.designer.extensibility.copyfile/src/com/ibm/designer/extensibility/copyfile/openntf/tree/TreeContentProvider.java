@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.Viewer;
 public class TreeContentProvider implements IStructuredContentProvider,
 		ITreeContentProvider {
 
+	@Override
 	@SuppressWarnings( { "unchecked" })
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof List) {
@@ -33,6 +34,7 @@ public class TreeContentProvider implements IStructuredContentProvider,
 		return new Object[0];
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object[] getChildren(Object parentElement) {
 		Itree node = (Itree) parentElement;
@@ -43,6 +45,7 @@ public class TreeContentProvider implements IStructuredContentProvider,
 		return list.toArray();
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public boolean hasChildren(Object element) {
 		Itree node = (Itree) element;
@@ -50,13 +53,16 @@ public class TreeContentProvider implements IStructuredContentProvider,
 		return !(list == null || list.isEmpty());
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
+	@Override
 	public void dispose() {
 	}
 }

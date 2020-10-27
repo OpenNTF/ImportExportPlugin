@@ -44,8 +44,7 @@ public class MyFileUtil {
 		if (dir.exists() && dir.isDirectory()) {
 			File[] dirList = dir.listFiles();
 
-			for (int i = 0; i < dirList.length; i++) {
-				File file = dirList[i];
+			for (File file : dirList) {
 				if (file.isDirectory()) {
 					readFolder(file);
 				} else if (file.isFile()) {
@@ -71,8 +70,7 @@ public class MyFileUtil {
 		}
 
 		File[] fileList = dir.listFiles();
-		for (int i = 0; i < fileList.length; i++) {
-			File file = fileList[i];
+		for (File file : fileList) {
 			if (file.isFile()) {
 				result = file.delete();
 			} else if (file.isDirectory()) {

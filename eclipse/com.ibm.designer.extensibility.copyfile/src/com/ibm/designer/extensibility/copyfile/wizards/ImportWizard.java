@@ -31,20 +31,19 @@ public class ImportWizard extends FileSystemImportWizard {
 	private IWorkbench workbench = null;
 
 	public ImportWizard() {
-		super();
 	}
 
 	public ImportWizard(IWorkbench workbench, ISelection selection) {
-		super();
 		this.workbench = workbench;
 		this.selection = (IStructuredSelection) selection;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
 	 */
+	@Override
 	@SuppressWarnings("restriction")
 	public boolean performFinish() {
 		return mainPage.finish();
@@ -52,10 +51,11 @@ public class ImportWizard extends FileSystemImportWizard {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 * org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setWindowTitle(Messages.FileImport_WindowTitle);
 		setNeedsProgressMonitor(true);
@@ -65,9 +65,10 @@ public class ImportWizard extends FileSystemImportWizard {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.IWizard#addPages()
 	 */
+	@Override
 	public void addPages() {
 		mainPage = new ImportWizardPage(Messages.FileImport_PageTitle,
 				workbench, selection);

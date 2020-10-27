@@ -39,7 +39,7 @@ public class EclipseFileList extends FileList {
 
 	/**
 	 * Returns the list of files represented by this FileList.
-	 * 
+	 *
 	 * @param p
 	 *            the current project
 	 * @param eclipseProject
@@ -86,8 +86,8 @@ public class EclipseFileList extends FileList {
 							+ relativePath.toString());
 		}
 
-		for (int i = 0; i < filenames.length; i++) {
-			IPath filePath = relativePath.append(filenames[i]);
+		for (String filename : filenames) {
+			IPath filePath = relativePath.append(filename);
 			IResource resource = eclipseProject.getFile(filePath);
 			if (resource.exists() && resource instanceof IFile) {
 				fileResources.add(resource);

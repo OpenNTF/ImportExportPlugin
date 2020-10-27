@@ -71,6 +71,7 @@ public class ImportThread implements Runnable {
 		this.ctl = ctl;
 	}
 
+	@Override
 	public void run() {
 		tempPath = PathUtil.getImportTempDir();
 
@@ -213,7 +214,7 @@ public class ImportThread implements Runnable {
 					Messages.OpenNTFImport_warn_noResource_inNsf, nsfPath);
 			return false;
 		}
-		
+
 		if (!sourceDir.exists() || !sourceDir.isDirectory()) {
 			logger.log(Level.WARNING, Messages.OpenNTFImport_error_export,
 					nsfPath);
@@ -284,6 +285,7 @@ public class ImportThread implements Runnable {
 	private void showDialog() {
 		// run in syncExec because ImportThread is not running in the UI thread.
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				StringBuffer msgBuf = new StringBuffer();
 				if (succeed_control_list.size() > 0) {

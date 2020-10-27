@@ -31,30 +31,30 @@ public class OpenNTFImportWizard extends FileSystemImportWizard {
 	private IWorkbench workbench = null;
 
 	public OpenNTFImportWizard() {
-		super();
 	}
 
 	public OpenNTFImportWizard(IWorkbench workbench, ISelection selection) {
-		super();
 		this.workbench = workbench;
 		this.selection = (IStructuredSelection) selection;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
 	 */
+	@Override
 	public boolean performFinish() {
 		return mainPage.finish();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 * org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setWindowTitle(Messages.OpenNTFImport_WindowTitle);
 		setNeedsProgressMonitor(true);
@@ -64,9 +64,10 @@ public class OpenNTFImportWizard extends FileSystemImportWizard {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.IWizard#addPages()
 	 */
+	@Override
 	public void addPages() {
 		mainPage = new OpenNTFImportWizardPage(
 				Messages.OpenNTFImport_PageTitle, workbench, selection);

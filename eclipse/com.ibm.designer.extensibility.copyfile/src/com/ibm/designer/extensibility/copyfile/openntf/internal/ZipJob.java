@@ -59,8 +59,8 @@ public class ZipJob extends WorkspaceJob {
 		String sourceMethod = "addToZipDirectory"; //$NON-NLS-1$
 		if (sourceDir.isDirectory()) {
 			String[] entries = sourceDir.list();
-			for (int i = 0; i < entries.length; i++) {
-				File f = new File(sourceDir, entries[i]);
+			for (String entry : entries) {
+				File f = new File(sourceDir, entry);
 				addToZipDirectory(out, f, relativeCount);
 			}
 		} else {
@@ -113,8 +113,8 @@ public class ZipJob extends WorkspaceJob {
 			try {
 				zipOutStream = new ZipOutputStream(
 						new FileOutputStream(zipFile));
-				for (int i = 0; i < entries.length; i++) {
-					File f = new File(sourceDir, entries[i]);
+				for (String entry : entries) {
+					File f = new File(sourceDir, entry);
 					addToZipDirectory(zipOutStream, f, relativeCount);
 				}
 

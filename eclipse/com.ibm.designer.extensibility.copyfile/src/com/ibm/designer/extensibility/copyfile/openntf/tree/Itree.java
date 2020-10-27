@@ -18,11 +18,11 @@ package com.ibm.designer.extensibility.copyfile.openntf.tree;
 import java.util.List;
 
 public interface Itree<T> {
-	public String getName();
+	String getName();
 
-	public void setName(String name);
+	void setName(String name);
 
-	public void setChildren(List<T> Children);
+	void setChildren(List<T> Children);
 
-	public List<T> getChildren();
+	List<T> getChildren();
 }

@@ -32,10 +32,12 @@ public class Control implements Itree<Object> {
 	public Control() {
 	}
 
+	@Override
 	public List<Object> getChildren() {
 		return null;
 	}
 
+	@Override
 	public void setChildren(List<Object> children) {
 	}
 
@@ -47,10 +49,12 @@ public class Control implements Itree<Object> {
 		this.unid = unid;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -86,11 +90,11 @@ public class Control implements Itree<Object> {
 	public void setZipFile(String zipFile) {
 		this.zipFile = zipFile;
 	}
-	
+
 	public boolean getHasImportlist(){
 		return hasImportlist;
 	}
-	
+
 	public void setHasImportlist(boolean hasImportlist){
 		this.hasImportlist = hasImportlist;
 	}

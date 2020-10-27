@@ -151,7 +151,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * The Finish button was pressed. Try to do the required work now and answer
 	 * a boolean indicating success. If false is returned then the wizard will
 	 * not close.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	@SuppressWarnings("unchecked")
@@ -187,7 +187,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Set up and execute the passed Operation. Answer a boolean indicating
 	 * success.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	protected boolean executeExportOperation(List<IResource> coreResources,
@@ -216,7 +216,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 		while (true) {
 			// Copy nsf file
-			IResource resource = (IResource) coreResources.get(0);
+			IResource resource = coreResources.get(0);
 			IProject eclipseProject = resource.getProject();
 
 			DesignerProject designerProject = DesignerResource
@@ -329,8 +329,8 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 			// Copy other files
 			String[] otherFiles = otherFileNamesField.getText().split(
 					OpenNTFConstants.FILE_SEPARATOR_READ);
-			for (int i = 0; i < otherFiles.length; i++) {
-				File aFile = new File(otherFiles[i]);
+			for (String otherFile : otherFiles) {
+				File aFile = new File(otherFile);
 				result = myFileUtil.copyfile(aFile, new File(tempDestination,
 						aFile.getName()), true);
 				if (!result) {
@@ -354,8 +354,8 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 			// Create xml file
 			ArrayList<String> files = new ArrayList<String>();
 			ArrayList<String> folders = new ArrayList<String>();
-			for (int i = 0; i < coreResources.size(); i++) {
-				IResource res = (IResource) coreResources.get(i);
+			for (IResource element : coreResources) {
+				IResource res = element;
 				IPath tempPath = res.getFullPath().removeFirstSegments(1);
 				if (res instanceof IFile) {
 					files.add(tempPath.toString());
@@ -363,16 +363,16 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 					folders.add(tempPath.toString());
 				} else if (res instanceof IProject) {
 					String[] default_folders = OpenNTFConstants.DEFAULT_IMPORT_FOLDERS;
-					for (int f = 0; f < default_folders.length; f++) {
-						folders.add(default_folders[f]);
+					for (String default_folder : default_folders) {
+						folders.add(default_folder);
 					}
 				}
 			}
 
 			ArrayList<String> testFiles = new ArrayList<String>();
 			ArrayList<String> testFolders = new ArrayList<String>();
-			for (int i = 0; i < testResources.size(); i++) {
-				IResource res = (IResource) testResources.get(i);
+			for (IResource element : testResources) {
+				IResource res = element;
 				IPath tempPath = res.getFullPath().removeFirstSegments(1);
 				if (res instanceof IFile) {
 					testFiles.add(tempPath.toString());
@@ -506,6 +506,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	/**
 	 * (non-Javadoc) Method declared on IDialogPage.
 	 */
+	@Override
 	public void createControl(Composite parent) {
 
 		initializeDialogUnits(parent);
@@ -538,7 +539,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Creates the checkbox tree and list for selecting resources.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 */
@@ -565,9 +566,9 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		List<IProject> input = new ArrayList<IProject>();
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot()
 				.getProjects();
-		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()) {
-				input.add(projects[i]);
+		for (IProject project : projects) {
+			if (project.isOpen()) {
+				input.add(project);
 			}
 		}
 
@@ -578,6 +579,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 						.getDecoratingWorkbenchLabelProvider(), SWT.NONE, true);
 
 		ICheckStateListener listener = new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				updateWidgetEnablements();
 			}
@@ -593,6 +595,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 */
 	private ITreeContentProvider getResourceProvider(final int resourceType) {
 		return new WorkbenchContentProvider() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public Object[] getChildren(Object o) {
 				if (o instanceof IContainer) {
@@ -606,11 +609,11 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 					// filter out the desired resource types
 					ArrayList<IResource> results = new ArrayList<IResource>();
-					for (int i = 0; i < members.length; i++) {
+					for (IResource member : members) {
 						// And the test bits with the resource types to see if
 						// they are what we want
-						if ((members[i].getType() & resourceType) > 0) {
-							results.add(members[i]);
+						if ((member.getType() & resourceType) > 0) {
+							results.add(member);
 						}
 					}
 					return results.toArray();
@@ -627,7 +630,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Creates the buttons for selecting specific types or selecting all or none
 	 * of the elements.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 */
@@ -652,6 +655,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 				Messages.OpenNTFExport_button_select_all, false);
 
 		SelectionListener listener = new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				resourceGroup.setAllSelections(true);
 			}
@@ -665,6 +669,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 				Messages.OpenNTFExport_button_deselect_all, false);
 
 		listener = new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				resourceGroup.setAllSelections(false);
 			}
@@ -684,7 +689,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * assumed to be a GridLayout and the number of columns in this layout is
 	 * incremented. Subclasses may override.
 	 * </p>
-	 * 
+	 *
 	 * @param parent
 	 *            the parent composite
 	 * @param id
@@ -695,7 +700,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * @param defaultButton
 	 *            <code>true</code> if the button is to be the default button,
 	 *            and <code>false</code> otherwise
-	 * 
+	 *
 	 * @see org.eclipse.ui.dialogs.WizardExportResourcesPage#createButton
 	 */
 	protected Button createButton(Composite parent, int id, String label,
@@ -779,7 +784,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 		// Zip Name Label field
 		Label zipNameLabel = new Label(zipNameGroup, SWT.NONE);
-		zipNameLabel.setText(Messages.OpenNTFExport_label_zip_file_name); //$NON-NLS-1$
+		zipNameLabel.setText(Messages.OpenNTFExport_label_zip_file_name); 
 		zipNameLabel.setFont(font);
 
 		// Zip Name Text field
@@ -820,6 +825,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		editNoticeButton.setLayoutData(new GridData(
 				GridData.HORIZONTAL_ALIGN_FILL));
 		editNoticeButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				File noticeFile = getTempNoticeFile(false);
 				try {
@@ -863,6 +869,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create the buttons in the options group.
 	 */
+	@Override
 	protected void createOptionsGroupButtons(Group optionsGroup) {
 
 		Font font = optionsGroup.getFont();
@@ -877,6 +884,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		createOtherFilesGroup(optionsGroup);
 		otherFilesGroup.setEnabled(otherFileCheckbox.getSelection());
 		otherFileCheckbox.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				if (otherFileCheckbox.getSelection()) {
 					otherFilesGroup.setEnabled(true);
@@ -909,9 +917,10 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 		// browse other files button
 		Button otherFilesButton = new Button(otherFilesGroup, SWT.PUSH);
-		otherFilesButton.setText(Messages.OpenNTFExport_button_browse); //$NON-NLS-1$
+		otherFilesButton.setText(Messages.OpenNTFExport_button_browse); 
 		otherFilesButton.setFont(font);
 		otherFilesButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to open multiple files
 				FileDialog dlg = new FileDialog(new Shell(), SWT.MULTI);
@@ -924,12 +933,12 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 					// the path, normalizing if necessary
 					StringBuffer buf = new StringBuffer();
 					String[] files = dlg.getFileNames();
-					for (int i = 0, n = files.length; i < n; i++) {
+					for (String file : files) {
 						buf.append(dlg.getFilterPath());
 						if (buf.charAt(buf.length() - 1) != File.separatorChar) {
 							buf.append(File.separatorChar);
 						}
-						buf.append(files[i]);
+						buf.append(file);
 						buf.append(OpenNTFConstants.FILE_SEPARATOR_WRITE);
 					}
 					otherFileNamesField.setText(buf.toString());
@@ -938,6 +947,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		});
 	}
 
+	@Override
 	protected void saveWidgetValues() {
 		// update directory names history
 		IDialogSettings settings = ImportExportPlugin.getDefault()
@@ -963,6 +973,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * Hook method for restoring widget values to the values that they held last
 	 * time this wizard was used to completion.
 	 */
+	@Override
 	protected void restoreWidgetValues() {
 		IDialogSettings settings = ImportExportPlugin.getDefault()
 				.getDialogSettings();
@@ -975,8 +986,8 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 			// destination
 			destinationNameField.setText(directoryNames[0]);
-			for (int i = 0; i < directoryNames.length; i++) {
-				destinationNameField.add(directoryNames[i]);
+			for (String directoryName : directoryNames) {
+				destinationNameField.add(directoryName);
 			}
 
 			// options
@@ -988,15 +999,16 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		}
 	}
 
+	@Override
 	protected boolean validateSourceGroup() {
 		List<IResource> resourcesToExport = getWhiteCheckedResources();
 		List<IResource> testResources = getTestCheckedResources();
 
 		if (resourcesToExport.size() > 0) {
-			IResource resource = (IResource) resourcesToExport.get(0);
+			IResource resource = resourcesToExport.get(0);
 			String project1 = resource.getProject().getName();
 			for (int i = resourcesToExport.size() - 1; i > 0; i--) {
-				resource = (IResource) resourcesToExport.get(i);
+				resource = resourcesToExport.get(i);
 				String project2 = resource.getProject().getName();
 				if (!project1.equals(project2)) {
 					setErrorMessage(Messages.OpenNTFExport_warn_select_multi_application);
@@ -1006,7 +1018,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 			if (testResources.size() > 0) {
 				for (int i = testResources.size() - 1; i > 0; i--) {
-					resource = (IResource) testResources.get(i);
+					resource = testResources.get(i);
 					String project2 = resource.getProject().getName();
 					if (!project1.equals(project2)) {
 						setErrorMessage(Messages.OpenNTFExport_warn_select_multi_application);
@@ -1019,6 +1031,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 		return super.validateSourceGroup();
 	}
 
+	@Override
 	protected boolean validateDestinationGroup() {
 		String zipName = zipNameField.getText();
 		if (zipName == null || zipName.equals("")) { //$NON-NLS-1$
@@ -1028,7 +1041,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 		List<IResource> resourcesToExport = getWhiteCheckedResources();
 		if (resourcesToExport.size() > 0) {
-			IResource resource = (IResource) resourcesToExport.get(0);
+			IResource resource = resourcesToExport.get(0);
 			String projectName = resource.getProject().getName();
 			if (zipName.equalsIgnoreCase(projectName)) {
 				setErrorMessage(Messages.OpenNTFExport_warn_zip_name_equal_project_name);
@@ -1051,7 +1064,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	@Override
 	/*
 	 * * Handle all events and enablements for widgets in this page
-	 * 
+	 *
 	 * @param e Event
 	 */
 	public void handleEvent(Event e) {
@@ -1086,10 +1099,10 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * Returns this page's collection of currently-specified resources to be
 	 * exported. This returns both folders and files - for just the files use
 	 * getSelectedResources.
-	 * 
+	 *
 	 * @return a collection of resources currently selected for export (element
 	 *         type: <code>IResource</code>)
-	 * 
+	 *
 	 * @see org.eclipse.ui.dialogs.WizardExportResourcesPage#getWhiteCheckedResources
 	 */
 	@SuppressWarnings("unchecked")
@@ -1106,9 +1119,9 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Save any editors that the user wants to save before export.
-	 * 
+	 *
 	 * @return boolean if the save was successful.
-	 * 
+	 *
 	 * @see org.eclipse.ui.dialogs.WizardExportResourcesPage#saveDirtyEditors
 	 */
 	protected boolean saveDirtyEditors() {
@@ -1120,7 +1133,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	 * If the target for export does not exist then attempt to create it. Answer
 	 * a boolean indicating whether the target exists (ie.- if it either
 	 * pre-existed or this method was able to create it)
-	 * 
+	 *
 	 * @return boolean
 	 */
 	protected boolean ensureTargetIsValid(File targetDirectory) {
@@ -1136,7 +1149,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 	/**
 	 * Attempts to ensure that the specified directory exists on the local file
 	 * system. Answers a boolean indicating success.
-	 * 
+	 *
 	 * @return boolean
 	 * @param directory
 	 *            java.io.File
@@ -1159,7 +1172,7 @@ public class OpenNTFExportWizardPage extends WizardDataTransferPage {
 
 	/**
 	 * Answer the contents of self's destination specification widget
-	 * 
+	 *
 	 * @return java.lang.String
 	 */
 	protected String getDestinationValue() {

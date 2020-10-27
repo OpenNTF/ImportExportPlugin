@@ -52,11 +52,12 @@ public class ExportJob extends WorkspaceJob {
 				filesToExport, todir, new IOverwriteQuery() {
 					/*
 					 * (non-Javadoc)
-					 * 
+					 *
 					 * @see
 					 * org.eclipse.ui.dialogs.IOverwriteQuery#queryOverwrite
 					 * (java.lang.String)
 					 */
+					@Override
 					public String queryOverwrite(String pathString) {
 						// Overwrite all files in the destination project
 						return IOverwriteQuery.ALL;

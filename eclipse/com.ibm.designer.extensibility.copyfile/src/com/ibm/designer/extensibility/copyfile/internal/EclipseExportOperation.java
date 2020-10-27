@@ -90,6 +90,7 @@ public class EclipseExportOperation extends FileSystemExportOperation {
 	 * Export the resources that were previously specified for export (or if a
 	 * single resource was specified then export it recursively)
 	 */
+	@Override
 	public void run(IProgressMonitor progressMonitor)
 			throws InterruptedException {
 		this.monitor = progressMonitor;
@@ -118,12 +119,13 @@ public class EclipseExportOperation extends FileSystemExportOperation {
 
 	/**
 	 * Export the passed file to the specified location
-	 * 
+	 *
 	 * @param sourceFile
 	 *            org.eclipse.core.resources.IFile
 	 * @param location
 	 *            org.eclipse.core.runtime.IPath
 	 */
+	@Override
 	protected void exportFile(IFile sourceFile, IPath location)
 			throws InterruptedException {
 		String sourceMethod = "exportFile"; //$NON-NLS-1$
@@ -300,9 +302,10 @@ public class EclipseExportOperation extends FileSystemExportOperation {
 	 * is a status object containing individual status objects for each error.
 	 * If there were no errors, the result is a status object with error code
 	 * <code>OK</code>.
-	 * 
+	 *
 	 * @return the status
 	 */
+	@Override
 	public IStatus getStatus() {
 		IStatus[] errors = new IStatus[errorTable.size()];
 		errorTable.toArray(errors);

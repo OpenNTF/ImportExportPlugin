@@ -30,29 +30,29 @@ public class OpenNTFExportWizard extends FileSystemExportWizard {
 	private IStructuredSelection selection = null;
 
 	public OpenNTFExportWizard() {
-		super();
 	}
 
 	public OpenNTFExportWizard(ISelection selection) {
-		super();
 		this.selection = (IStructuredSelection) selection;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
 	 */
+	@Override
 	public boolean performFinish() {
 		return mainPage.finish();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 * org.eclipse.jface.viewers.IStructuredSelection)
 	 */
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		setWindowTitle(Messages.OpenNTFExport_WindowTitle);
 		setNeedsProgressMonitor(true);
@@ -61,9 +61,10 @@ public class OpenNTFExportWizard extends FileSystemExportWizard {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.wizard.IWizard#addPages()
 	 */
+	@Override
 	public void addPages() {
 		mainPage = new OpenNTFExportWizardPage(
 				Messages.OpenNTFExport_PageTitle, selection);

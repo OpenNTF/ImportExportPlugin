@@ -37,18 +37,22 @@ public class Catalog implements Itree<Control> {
 		this.importlistUrlReplacement = importlistUrlReplacement;
 	}
 
+	@Override
 	public List<Control> getChildren() {
 		return children;
 	}
 
+	@Override
 	public void setChildren(List<Control> children) {
 		this.children = children;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -77,5 +81,5 @@ public class Catalog implements Itree<Control> {
 		return importlistUrlReplacement;
 	}
 
-	
+
 }

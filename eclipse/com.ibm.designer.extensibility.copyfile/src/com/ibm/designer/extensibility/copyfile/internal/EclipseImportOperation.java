@@ -109,11 +109,11 @@ public class EclipseImportOperation extends ImportOperation {
 	 * (non-Javadoc) Method declared on WorkbenchModifyOperation. Imports the
 	 * specified file system objects from the file system.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	protected void execute(IProgressMonitor progressMonitor) {
 		this.monitor = progressMonitor;
 		if (selectedFiles == null) {
-			return;
 		} else {
 			int creationCount = selectedFiles.size();
 			monitor.beginTask(Messages.FileImport_importTask, creationCount);
@@ -130,7 +130,7 @@ public class EclipseImportOperation extends ImportOperation {
 	 * Imports the specified file system objects into the workspace. If the
 	 * import fails, adds a status object to the list to be returned by
 	 * <code>getStatus</code>.
-	 * 
+	 *
 	 * @param filesToImport
 	 *            the list of file system objects to import (element type:
 	 *            <code>Object</code>)
@@ -160,8 +160,9 @@ public class EclipseImportOperation extends ImportOperation {
 				continue;
 			}
 			importFile(fileSystemObject, eclipseProject);
-			if (userCancel)
+			if (userCancel) {
 				break;
+			}
 		}
 	}
 
@@ -169,7 +170,7 @@ public class EclipseImportOperation extends ImportOperation {
 	 * Imports the specified file system object into the workspace. If the
 	 * import fails, adds a status object to the list to be returned by
 	 * <code>getResult</code>.
-	 * 
+	 *
 	 * @param fileObject
 	 *            the file system object to be imported
 	 * @param eclipseProject
@@ -374,7 +375,7 @@ public class EclipseImportOperation extends ImportOperation {
 	/**
 	 * Queries the user whether the resource with the specified path should be
 	 * overwritten by a file system object that is being imported.
-	 * 
+	 *
 	 * @param resourcePath
 	 *            the workspace path of the resource that needs to be
 	 *            overwritten
@@ -499,9 +500,10 @@ public class EclipseImportOperation extends ImportOperation {
 	 * result is a status object containing individual status objects for each
 	 * error. If there were no errors, the result is a status object with error
 	 * code <code>OK</code>.
-	 * 
+	 *
 	 * @return the status
 	 */
+	@Override
 	public IStatus getStatus() {
 		IStatus[] errors = new IStatus[errorTable.size()];
 		errorTable.toArray(errors);

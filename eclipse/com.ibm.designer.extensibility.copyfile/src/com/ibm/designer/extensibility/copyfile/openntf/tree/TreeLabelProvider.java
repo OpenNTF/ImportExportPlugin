@@ -20,12 +20,14 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 public class TreeLabelProvider extends LabelProvider implements ILabelProvider {
+	@Override
 	@SuppressWarnings("unchecked")
 	public String getText(Object element) {
 		Itree node = (Itree) element;
 		return node.getName();
 	}
 
+	@Override
 	public Image getImage(Object element) {
 		return null;
 	}

@@ -62,6 +62,7 @@ public class ImportFinishMessageDialog extends MessageDialog {
 	/*
 	 * (non-Javadoc) Method declared on Dialog.
 	 */
+	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		buttons = new Button[buttonLabels.length];
 		for (int i = 0; i < buttonLabels.length; i++) {
@@ -73,6 +74,7 @@ public class ImportFinishMessageDialog extends MessageDialog {
 
 		Button button = buttons[tempDirIndex];
 		button.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
 					IPath tempPath = PathUtil.getImportTempDir();

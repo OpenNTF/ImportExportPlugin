@@ -57,7 +57,7 @@ public class OpenNTFConstants {
 	public static final String[] DEFAULT_IMPORT_FILES = { Constants.FILE_CLASSPATH };
 
 	// toolbar icons
-	public static final String ICON_DIR = "icons/"; //$NON-NLS-1$ 
+	public static final String ICON_DIR = "icons/"; //$NON-NLS-1$
 	public static final String IMPORT_OPENNTF_ICON = "openntf_import.png"; //$NON-NLS-1$
 	public static final String EXPORT_OPENNTF_ICON = "openntf_export.png"; //$NON-NLS-1$
 	public static final String IMPORT_RESOURCE_ICON = "filesystem_import.png"; //$NON-NLS-1$

@@ -62,6 +62,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		menuItem.setImage(ImportExportPlugin
 				.getImage(OpenNTFConstants.IMPORT_OPENNTF_ICON));
 		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				showImportOpenntfWizard();
 			}
@@ -71,6 +72,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		menuItem.setImage(ImportExportPlugin
 				.getImage(OpenNTFConstants.EXPORT_OPENNTF_ICON));
 		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				showExportOpenntfWizard();
 			}
@@ -80,6 +82,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		menuItem.setImage(ImportExportPlugin
 				.getImage(OpenNTFConstants.TEMP_FOLDER_ICON));
 		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
 					IPath tempPath = PathUtil.getImportTempDir();
@@ -97,6 +100,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		menuItem.setImage(ImportExportPlugin
 				.getImage(OpenNTFConstants.IMPORT_RESOURCE_ICON));
 		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				showImportResourceWizard();
 			}
@@ -106,6 +110,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		menuItem.setImage(ImportExportPlugin
 				.getImage(OpenNTFConstants.EXPORT_RESOURCE_ICON));
 		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				showExportResourceWizard();
 			}
@@ -113,6 +118,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		return menu;
 	}
 
+	@Override
 	public void dispose() {
 		if (menu != null) {
 			menu.dispose();
@@ -120,6 +126,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		}
 	}
 
+	@Override
 	public Menu getMenu(Menu parent) {
 		if (menu != null) {
 			menu.dispose();
@@ -128,6 +135,7 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		return createMenu(menu);
 	}
 
+	@Override
 	public Menu getMenu(Control parent) {
 		if (menu != null) {
 			menu.dispose();
@@ -152,29 +160,34 @@ public class OpenNTFToolbarAction implements IWorkbenchWindowPulldownDelegate2 {
 		action.setEnabled(false);
 
 		// selection should be of IStructuredSelection
-		if (!(selection instanceof IStructuredSelection))
+		if (!(selection instanceof IStructuredSelection)) {
 			return;
+		}
 
-		if (((IStructuredSelection) selection).size() > 1)
+		if (((IStructuredSelection) selection).size() > 1) {
 			return;
+		}
 
 		Object obj = getSelectedObject(selection);
 
-		if (obj instanceof DesignerProject)
+		if (obj instanceof DesignerProject) {
 			action.setEnabled(true);
+		}
 	}
 
 	private Object getSelectedObject(ISelection selection) {
 		Object obj = ((IStructuredSelection) selection).getFirstElement();
-		if (obj instanceof IDesignerSelection)
+		if (obj instanceof IDesignerSelection) {
 			obj = ((IDesignerSelection) obj).getSelectionObject();
+		}
 
 		if (obj instanceof IResource) {
 			if (obj instanceof IProject) {
 				obj = DesignerResource.getDesignerProject((IProject) obj);
 			} else {
-				if (((IResource) obj).exists())
+				if (((IResource) obj).exists()) {
 					obj = DesignerResource.getDesignElement((IResource) obj);
+				}
 			}
 		}
 		return obj;

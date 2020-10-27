@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.Path;
 public class EclipseDirectoryScanner extends DirectoryScanner {
 	/**
 	 * Scanning lock.
-	 * 
+	 *
 	 * @since Ant 1.6.3
 	 * @see DirectoryScanner
 	 */
@@ -37,7 +37,7 @@ public class EclipseDirectoryScanner extends DirectoryScanner {
 
 	/**
 	 * Scanning flag.
-	 * 
+	 *
 	 * @since Ant 1.6.3
 	 * @see DirectoryScanner
 	 */
@@ -45,7 +45,7 @@ public class EclipseDirectoryScanner extends DirectoryScanner {
 
 	/**
 	 * Exception thrown during scan.
-	 * 
+	 *
 	 * @since Ant 1.6.3
 	 * @see DirectoryScanner
 	 */
@@ -53,7 +53,7 @@ public class EclipseDirectoryScanner extends DirectoryScanner {
 
 	/**
 	 * Whether a missing base directory is an error.
-	 * 
+	 *
 	 * @since Ant 1.7.1
 	 * @see DirectoryScanner
 	 */
@@ -69,7 +69,7 @@ public class EclipseDirectoryScanner extends DirectoryScanner {
 
 	/**
 	 * Scan for includedFolder.
-	 * 
+	 *
 	 * @param eclipseProject
 	 * @exception IllegalStateException
 	 *                if the base directory was set incorrectly (i.e. if it
@@ -138,7 +138,7 @@ public class EclipseDirectoryScanner extends DirectoryScanner {
 
 	/**
 	 * Return the folder, it is relative to the base directory.
-	 * 
+	 *
 	 * @return IFolder
 	 */
 	public synchronized IFolder getIncludedFolder() {

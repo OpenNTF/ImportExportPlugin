@@ -65,9 +65,9 @@ public class ControlsPeek {
 			istream = urlc.getInputStream();
 			jArray = new JSONArray(istream);
 
-			for (int i = 0; i < jArray.size(); i++) {
+			for (Object element : jArray) {
 				Control ctl = new Control();
-				JSONObject obj = (JSONObject) jArray.get(i);
+				JSONObject obj = (JSONObject) element;
 				ctl.setUnid((String) obj.get("@unid")); //$NON-NLS-1$
 				ctl.setName((String) obj.get("Name")); //$NON-NLS-1$
 				ctl.setDescription((String) obj.get("Description")); //$NON-NLS-1$
